@@ -22,21 +22,19 @@ mongoose
       useUnifiedTopology: true,
     }
   )
-  .then(() => console.log("db connected"));
+  .then(() => console.log("db connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Serve static files from the React app
-app.use(express.static("../client/build"));
+app.use(express.static(path.join(__dirname, "../client/build")));
+
 // API routes
 app.use("/api/user", userRouters);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("../client/build/index.html"));
-});
-app.post("/api/user/signup", (req, res) => {
-  // Handle signup logic here
-  res.status(200).send("Signup route working!"); // Example response
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
