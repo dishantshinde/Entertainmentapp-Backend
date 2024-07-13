@@ -26,7 +26,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "build")));
 
 // API routes
 app.use("/api/user", userRouters);
@@ -34,7 +34,7 @@ app.use("/api/user", userRouters);
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
